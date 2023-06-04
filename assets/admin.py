@@ -15,7 +15,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 @admin.register(models.Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("company", "user", "is_staff", "devices")
+    list_display = ("company", "user", "is_staff")
 
 
 @admin.register(models.DeviceCheck)

@@ -4,25 +4,27 @@ from django.db import models
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
-    locattion = models.CharField(max_length=150)
+    location = models.CharField(max_length=150)
 
     class Meta:
         ordering = ["name"]
 
     def __str__(self):
-        return f"{self.name} {self.locattion}"
+        return f"{self.name}"
 
 
 class Device(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Employee(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_staff = models.BooleanField(default=False)
-    devices = models.ManyToManyField(Device, through="DeviceAllocation")
 
     def __str__(self):
         return self.user.username
@@ -45,8 +47,12 @@ class DeviceCheck(models.Model):
         ("Poor", "Poor"),
     )
 
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    device = models.ForeignKey(
+        Device, on_delete=models.CASCADE, related_name="device_checks"
+    )
+    employee = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, related_name="device_checks"
+    )
     log_type = models.CharField(
         max_length=2, choices=LOG_TYPE_CHOICES, default=NO_CHECKOUT
     )
