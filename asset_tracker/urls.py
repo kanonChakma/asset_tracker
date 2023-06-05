@@ -1,5 +1,6 @@
 from assets.views import (
     CompanyViewSet,
+    DeviceListByEmployeeAPIView,
     DeviceListCreateView,
     DeviceRetrieveUpdateDestroyView,
     EmployeeListCreateView,
@@ -25,6 +26,12 @@ urlpatterns = [
         "devices/<int:pk>/",
         DeviceRetrieveUpdateDestroyView.as_view(),
         name="device-detail",
+    ),
+    # get device details by employee
+    path(
+        "employees/<int:emp_id>/devices/",
+        DeviceListByEmployeeAPIView.as_view(),
+        name="employee-devices",
     ),
     path("", include(router.urls)),
 ]

@@ -5,7 +5,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from .models import Company, Device, Employee
-from .serailizers import CompanySerializer, DeviceSerializer, EmployeeSerializer
+from .serailizers import (
+    CompanySerializer,
+    DeviceAllocationSerializer,
+    DeviceCheckSerializer,
+    DeviceSerializer,
+    EmployeeSerializer,
+)
 
 
 class CompanyViewSet(ViewSet):
@@ -55,3 +61,13 @@ class DeviceListCreateView(generics.ListCreateAPIView):
 class DeviceRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
+
+
+class DeviceListByEmployeeAPIView(generics.ListAPIView):
+    serializer_class = DeviceAllocationSerializer
+
+    def get_queryset(self):
+        emp_id = self.kwargs["emp_id"]
+        employee = Employee.objects.get(id=emp_id)
+        device_checks = employee.device_allocation.all()
+        return device_checks

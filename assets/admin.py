@@ -15,14 +15,13 @@ class DeviceAdmin(admin.ModelAdmin):
 
 @admin.register(models.Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("company", "user", "is_staff")
+    list_display = ("company", "first_name", "last_name", "email", "is_staff")
 
 
 @admin.register(models.DeviceCheck)
 class DeviceCheckAdmin(admin.ModelAdmin):
     list_display = (
         "device",
-        "employee",
         "log_type",
         "checked_out_date",
         "returned_date",
