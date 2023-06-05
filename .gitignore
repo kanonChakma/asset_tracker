@@ -4,3 +4,7 @@ command.txt
 .coverage
 hmtlcov/
 .pytest_cache
+*.sqlite3
+assets/migrations
+schema.yml
+.env

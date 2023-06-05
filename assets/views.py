@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
@@ -41,26 +42,31 @@ class CompanyViewSet(ViewSet):
 
 
 class EmployeeListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
 
 class EmployeeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
 
 class DeviceListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
 
 
 class DeviceRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
 
 
 class DeviceListByEmployeeAPIView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = DeviceAllocationSerializer
 
     def get_queryset(self):
