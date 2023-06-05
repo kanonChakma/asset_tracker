@@ -8,7 +8,6 @@ from .models import Company, Device, Employee
 from .serailizers import (
     CompanySerializer,
     DeviceAllocationSerializer,
-    DeviceCheckSerializer,
     DeviceSerializer,
     EmployeeSerializer,
 )
@@ -18,7 +17,6 @@ class CompanyViewSet(ViewSet):
     queryset = Company.objects.all()
 
     def list(self, request):
-        print("This is calling!!!!!")
         serializer = CompanySerializer(self.queryset, many=True)
         return Response(serializer.data)
 
@@ -30,7 +28,6 @@ class CompanyViewSet(ViewSet):
         return Response(serializer.errors, status=400)
 
     def retrive(self, request, pk=None):
-        print("This is calling!!!!!")
         company = get_object_or_404(self.queryset, pk=pk)
         serializer = CompanySerializer(company)
         return Response(serializer.data)

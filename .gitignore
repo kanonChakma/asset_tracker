@@ -1,2 +1,6 @@
-venv
+venv/
 __pycache__
+command.txt
+.coverage
+hmtlcov/
+.pytest_cache
