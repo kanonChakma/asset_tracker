@@ -7,3 +7,4 @@ hmtlcov/
 *.sqlite3
 assets/migrations
 schema.yml
+.env

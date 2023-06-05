@@ -21,7 +21,10 @@ class TestDeviceModel:
         assert device.__str__() == "device1"
 
     def test_device_property(self, device_factory):
-        device = device_factory()
-        assert device.name == "device1"
-        assert device.identifier == "identifier-one"
-        assert device.description == "This is device!!!!"
+        device = device_factory(
+            name="device2", identifier="identifier2", description="This is device2!!"
+        )
+        assert device.__str__() == "device2"
+        assert device.name == "device2"
+        assert device.identifier == "identifier2"
+        assert device.description == "This is device2!!"
